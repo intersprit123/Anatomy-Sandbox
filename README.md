@@ -46,6 +46,20 @@ Do **not** put these values in source files, commit them, or send them in chat. 
 
 For a Personal license, use Unity Hub on a computer once to sign in and activate **Unity Personal**, then locate the generated license file. Typical Windows location: `C:\\ProgramData\\Unity\\Unity_lic.ulf`. Copy the file's contents into the `UNITY_LICENSE` secret. The computer is needed for this one-time license setup, not for each cloud build. GameCI's official guide has the current steps: https://game.ci/docs/github/activation/
 
+
+## Request a Unity activation file from GitHub
+
+A separate workflow is available at `.github/workflows/activation.yml` for requesting a Unity activation file without installing Unity locally:
+
+1. Open **Actions** in this repository.
+2. Select **Request Unity Activation File** and choose **Run workflow**.
+3. When the run completes, download the `Unity-Activation-File` artifact and extract the `.alf` file.
+4. Upload it to the [Unity manual license portal](https://license.unity3d.com/manual) and follow the options Unity officially provides.
+
+**Important:** GameCI's current activation documentation warns that Unity no longer supports manual activation of Personal licenses in all cases. The portal may not offer Personal as an option. If that happens, do not try to bypass the portal's controls; use Unity Hub's supported Personal activation method instead. The activation workflow only requests the `.alf` file; it does not create or grant a license by itself.
+
+Official instructions: https://game.ci/docs/github/activation/
+
 ## Android build configuration
 
 - Package ID: `com.intersprit.anatomysandbox`
