@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEditor.SceneManagement;
 using AnatomySandbox.Setup;
 
@@ -76,10 +77,7 @@ namespace AnatomySandbox.Editor
             PlayerSettings.stripEngineCode = true;
             PlayerSettings.runInBackground = false;
 
-#pragma warning disable CS0618
-            // The existing orbit controller uses UnityEngine.Input (legacy input API).
-            PlayerSettings.activeInputHandler = 0;
-#pragma warning restore CS0618
+// Input handling is configured by the project settings; avoid the removed activeInputHandler API.
         }
 
         private static void CreateStartupScene()
