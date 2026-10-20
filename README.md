@@ -1,38 +1,51 @@
 # Anatomy Sandbox
 
-An Android-first, interactive 3D anatomy learning sandbox built with **Unity 6.3 LTS**, C#, and URP.
+An Android-first 3D anatomy learning sandbox. The current foundation is **Unity C# source code** intended for Unity 6.3 LTS; this repository is not yet a complete, tested Unity project.
 
-> **Educational toy simulation only.** The physiology values and scenario responses are fictional approximations. They are not medically accurate, diagnostic, or suitable for real-world medical decisions.
+> **Educational toy only.** Vital-sign values are fictional approximations and are not medically accurate, diagnostic, or suitable for real-world medical decisions.
 
-## Planned experience
+## Current foundation
 
-- A detailed rotatable human model with selectable body parts, skeleton, muscles, and organs.
-- Animated breathing and heartbeat, plus illustrative circulation and oxygen visualizations.
-- Play/pause, reset, simulation speed, scenario selection, vital signs, and an event timeline.
-- Toy scenarios for healthy baseline, low oxygen, reduced blood flow, dehydration, and respiratory/circulatory disruption.
-- Mobile-first controls and performance-conscious rendering.
+- A procedural, stylized human mannequin built from Unity primitive meshes.
+- Basic visible internal organ placeholders and skeletal landmarks.
+- Body-part selection and hide/restore behavior.
+- A fictional physiology scenario controller and vital-sign data model.
+- Touch/mouse drag rotation and pinch/scroll zoom.
+- A Unity-oriented `.gitignore`.
 
-## Current repository status
+## Important limitations
 
-The initial C# foundation is being added. This repository is **not yet a complete Unity project**: it still needs the Unity project settings, scenes, prefabs/materials, UI, and an imported or authored detailed anatomy model. The scripts should be integrated and tested in Unity 6.3 LTS before calling the app runnable.
+- The generated body is a **placeholder**, not a realistic medical-grade anatomy model.
+- The repository does not yet contain Unity project settings, a scene, materials/prefabs authored in the editor, or a detailed anatomy asset pack.
+- The scripts have been written to the repository but have **not been compiled or run in Unity yet**.
+- **No visual animations are included at this stage**, as requested. We will add animations later when suitable assets or user-provided files are ready.
+- UI panels, part labels/details, layer toggles, scenario selector, timeline, and a complete Android build still need to be implemented.
 
-### Initial scripts
+## Getting started (when Unity is available)
 
-- `Assets/AnatomySandbox/Scripts/Simulation/SimulationScenario.cs` — scenario enum.
-- `Assets/AnatomySandbox/Scripts/Simulation/VitalSigns.cs` — toy vital-sign data.
-- `Assets/AnatomySandbox/Scripts/Simulation/AnatomySimulationController.cs` — time-based scenario responses and events.
-- `Assets/AnatomySandbox/Scripts/Animation/OrganPulse.cs` — heartbeat pulse and illustrative emission.
-- `Assets/AnatomySandbox/Scripts/Interaction/BodyPartInteractable.cs` — selectable/removable body-part component.
-- `.gitignore` — ignores Unity-generated files.
+1. Create a new Unity 6.3 LTS project using URP.
+2. Copy the `Assets/AnatomySandbox` folder into the project.
+3. Create an empty GameObject and add `ProceduralAnatomyBuilder`.
+4. Press Play to generate the placeholder model.
+5. Check the Console, then test drag rotation, pinch zoom, and body-part selection on a touch device.
 
-## Next implementation steps
+## Scripts
 
-1. Create/open a Unity 6.3 LTS project using URP and copy these scripts into it.
-2. Build the mobile-friendly scene and UI; connect the scenario selector, vital-sign display, timeline, and speed controls to `AnatomySimulationController`.
-3. Add anatomical meshes, colliders, materials, labels, and organ animation.
-4. Test touch interaction, lifecycle/reset behavior, and Android performance on a real device.
-5. Add automated checks and document a repeatable Android build.
+- `Scripts/Setup/ProceduralAnatomyBuilder.cs` — creates a procedural mannequin and placeholder organs.
+- `Scripts/Interaction/BodyPartInteractable.cs` — selection event and hide/restore logic.
+- `Scripts/Interaction/ModelOrbitController.cs` — basic mouse/touch rotation and zoom.
+- `Scripts/Simulation/SimulationScenario.cs` — scenario options.
+- `Scripts/Simulation/VitalSigns.cs` — fictional vital-sign data.
+- `Scripts/Simulation/AnatomySimulationController.cs` — time-based educational scenario values.
 
-## Safety and scope
+## Suggested asset sources
 
-The simulation is designed for learning about relationships between body systems, not for depicting a real person's suffering. It should use non-graphic visual effects and clearly label every displayed value as simulated.
+- Unity Asset Store: https://assetstore.unity.com/
+- Sketchfab downloadable models: https://sketchfab.com/search?features=downloadable&q=human%20anatomy
+- Mixamo for humanoid character rigging and later animations: https://www.mixamo.com/
+
+Before importing any asset, check its license, Unity/URP compatibility, file format, and whether individual organs are separate meshes. For this project, a model with separately selectable named organs is more useful than a single fused mesh.
+
+## Safety
+
+This project is intended to explain anatomy and relationships between body systems using non-graphic fictional demonstrations. It should not depict a real person's suffering or be used as a medical tool.
