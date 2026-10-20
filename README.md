@@ -47,16 +47,23 @@ Do **not** put these values in source files, commit them, or send them in chat. 
 For a Personal license, use Unity Hub on a computer once to sign in and activate **Unity Personal**, then locate the generated license file. Typical Windows location: `C:\\ProgramData\\Unity\\Unity_lic.ulf`. Copy the file's contents into the `UNITY_LICENSE` secret. The computer is needed for this one-time license setup, not for each cloud build. GameCI's official guide has the current steps: https://game.ci/docs/github/activation/
 
 
-## Request a Unity activation file from GitHub
+## Unity license setup for GitHub Actions
 
-A separate workflow is available at `.github/workflows/activation.yml` for requesting a Unity activation file without installing Unity locally:
+The old `game-ci/unity-request-activation-file@v2` action is no longer supported, so the deprecated activation workflow has been removed.
 
-1. Open **Actions** in this repository.
-2. Select **Request Unity Activation File** and choose **Run workflow**.
-3. When the run completes, download the `Unity-Activation-File` artifact and extract the `.alf` file.
-4. Upload it to the [Unity manual license portal](https://license.unity3d.com/manual) and follow the options Unity officially provides.
+For a free Unity Personal license, GameCI's current instructions say to activate it in Unity Hub:
 
-**Important:** GameCI's current activation documentation warns that Unity no longer supports manual activation of Personal licenses in all cases. The portal may not offer Personal as an option. If that happens, do not try to bypass the portal's controls; use Unity Hub's supported Personal activation method instead. The activation workflow only requests the `.alf` file; it does not create or grant a license by itself.
+1. Install/open Unity Hub on a computer and sign in to the Unity account you want to use for CI.
+2. Open **Unity Hub → Settings/Preferences → Licenses → Add** and choose **Get a free Personal license**, then complete activation.
+3. Locate the resulting license file. On Windows, the usual location is `C:\\ProgramData\\Unity\\Unity_lic.ulf`.
+4. In this repository, open **Settings → Secrets and variables → Actions** and create:
+   - `UNITY_LICENSE`: the full contents of `Unity_lic.ulf`
+   - `UNITY_EMAIL`: the email address for your Unity account
+   - `UNITY_PASSWORD`: the password for your Unity account
+
+Do not commit these values or share them in chat. Put them only in GitHub's encrypted Actions secrets.
+
+Unity no longer supports manual activation of Personal licenses in all cases, so the old `.alf`-through-website method may not offer Personal. We should use the current supported Unity Hub method rather than relying on a retired action or bypassing the licensing page.
 
 Official instructions: https://game.ci/docs/github/activation/
 
