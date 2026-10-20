@@ -37,9 +37,24 @@ namespace AnatomySandbox.Interaction
 
         private void Awake()
         {
+            CacheRenderers();
+            simulation = FindFirstObjectByType<AnatomySimulationController>();
+        }
+
+        public void Configure(string partName, BodySystem bodySystem, bool canRemove)
+        {
+            displayName = partName;
+            system = bodySystem;
+            removable = canRemove;
+            CacheRenderers();
+            if (simulation == null)
+                simulation = FindFirstObjectByType<AnatomySimulationController>();
+        }
+
+        private void CacheRenderers()
+        {
             Transform root = visualRoot != null ? visualRoot : transform;
             renderers = root.GetComponentsInChildren<Renderer>(true);
-            simulation = FindFirstObjectByType<AnatomySimulationController>();
         }
 
         private void OnMouseDown()
@@ -62,9 +77,6 @@ namespace AnatomySandbox.Interaction
         private void SetRemoved(bool removed)
         {
             IsRemoved = removed;
-
-            // Hide meshes instead of disabling this GameObject, so the selection collider
-            // and this script remain available to restore the part.
             if (renderers != null)
             {
                 foreach (Renderer meshRenderer in renderers)
