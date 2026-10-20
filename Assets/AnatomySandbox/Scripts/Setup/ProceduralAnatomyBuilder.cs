@@ -34,6 +34,7 @@ namespace AnatomySandbox.Setup
             GameObject root = new GameObject("GeneratedAnatomy");
             root.transform.SetParent(transform, false);
             anatomyRoot = root.transform;
+            anatomyRoot.gameObject.AddComponent<ModelOrbitController>();
 
             Material skin = MakeMaterial("Warm skin", new Color(0.72f, 0.43f, 0.34f));
             Material muscle = MakeMaterial("Muscle red", new Color(0.62f, 0.12f, 0.19f));
